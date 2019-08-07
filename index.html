@@ -8,7 +8,8 @@ else if (localStorage.getItem("incognito") === "false") {
 }
   
 navigator.permissions.query({name: "notifications"}).then((state) => {
-    if (state.state === "denied" && window.incognito !== true) {
+    if (window.incognito) {return}
+    if (state.state === "denied") {
         document.write("Can not determine if you are in incognito mode or not (notifications permission is set to block. Clear your site settings)")
     }
     else {
