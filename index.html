@@ -1,40 +1,43 @@
 <script>
-  window.onmousemove = (e) => {
+window.onmousemove = (e) => {
     window.x = e.pageX
     window.y = e.pageY
-  }
-
-  if (localStorage.getItem("incognito") === "true") {
+}
+if (localStorage.getItem("incognito") === "true") {
     window.incognito = true
-  }
-  else if (localStorage.getItem("incognito") === "false") {
+}
+else if (localStorage.getItem("incognito") === "false") {
     window.incognito = false
-  }
+}
   
-  navigator.permissions.query({name: "notifications"}).then((state) => {
+navigator.permissions.query({name: "notifications"}).then((state) => {
     if (state.state === "denied") {
-      document.write("Can not determine if you are in incognito mode or not (either notifications has been set to block, of you have visited this site more than once in a session.)")
+        document.write("Can not determine if you are in incognito mode or not (either notifications has been set to block, of you have visited this site more than once in a session.)")
     }
     else {
-      Notification.requestPermission().then((state) => {
-                    console.log(window.x)
-            console.log(window.y)
-        console.log(state)
-        if (state !== "denied") {window.incognito = false}
-        else {
-          setTimeout(function() {
-            if (window.x < 400 && window.y < 95) {
-              window.incognito = false
+        Notification.requestPermission().then((state) => {
+            if (state !== "denied") {
+                window.incognito = false
             }
             else {
-              window.incognito = true
+                setTimeout(function() {
+                    if (window.x < 400 && window.y < 95) {
+                        window.incognito = false
+                    }
+                    else {
+                        window.incognito = true
+                    }
+                    localStorage.setItem("incognito", window.incognito)
+                    if (window.incognito) {
+                        document.write("You are in incognito mode")
+                    }
+                    else {
+                        document.write("You are not in incognito mode")
+                    }
+                }, 500)
             }
-          }
-          localStorage.setItem("incognito", window.incognito)
-          document.write(window.incognito?"You are in incognito mode":"You are not in incognito mode")
-          }, 500)
-      })
+        })
     }
-  })
+})
 
 </script>
