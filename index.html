@@ -1,8 +1,5 @@
 <script>
-window.onmousemove = (e) => {
-    window.x = e.pageX
-    window.y = e.pageY
-}
+
 if (localStorage.getItem("incognito") === "true") {
     window.incognito = true
 }
@@ -20,8 +17,8 @@ navigator.permissions.query({name: "notifications"}).then((state) => {
                 window.incognito = false
             }
             else {
-                setTimeout(function() {
-                    if (window.x < 400 && window.y < 95) {
+                window.onmousemove = (e) => {
+                    if (e.pageX < 400 && e.pageY < 95) {
                         window.incognito = false
                     }
                     else {
@@ -34,7 +31,7 @@ navigator.permissions.query({name: "notifications"}).then((state) => {
                     else {
                         document.write("You are not in incognito mode")
                     }
-                }, 500)
+                }
             }
         })
     }
