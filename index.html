@@ -1,0 +1,8 @@
+<script>
+navigator.permissions.query({name: "notifications"}).then((state) => {
+window.incognito = (state.state === "denied")
+if (window.incognito) {document.write("You are in incognito mode")}
+else {document.write("You are not in incognito mode")}
+})
+
+</script>
