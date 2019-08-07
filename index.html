@@ -22,14 +22,17 @@
         console.log(state)
         if (state !== "denied") {window.incognito = false}
         else {
-          if (window.x < 400 && window.y < 95) {
-            window.incognito = false
+          setTimeout(function() {
+            if (window.x < 400 && window.y < 95) {
+              window.incognito = false
+            }
+            else {
+              window.incognito = true
+            }
           }
-          else {
-            window.incognito = true
-          }
-        }
-        localStorage.setItem("incognito", window.incognito)
+          localStorage.setItem("incognito", window.incognito)
+          document.write(window.incognito?"You are in incognito mode":"You are not in incognito mode")
+          }, 500)
       })
     }
   })
